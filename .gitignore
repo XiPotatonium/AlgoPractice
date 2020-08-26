@@ -1,0 +1,11 @@
+.vs
+.vscode
+
+algos.old
+
+*.exe
+*.o
+*.out
+
+build/*
+out/*
