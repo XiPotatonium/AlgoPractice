@@ -6,6 +6,8 @@ algos.old
 *.exe
 *.o
 *.out
+*.ilk
+*.pdb
 
 build/*
 out/*
