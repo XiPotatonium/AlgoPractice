@@ -32,6 +32,8 @@ int main() {
             for (int j = 0; j < n; j++) {
                 if ((a <= pre_tra[j] && pre_tra[j] <= b) ||
                     (b <= pre_tra[j] && pre_tra[j] <= a)) {
+                    // 利用二叉搜索树的性质，a和b的LCA一定大小介于a和b之间
+                    // 而前序遍历又是自顶向下的，所以最后不满足的时候lca就是lca
                     lca = pre_tra[j];
                     break;
                 }
