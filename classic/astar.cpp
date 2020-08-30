@@ -1,6 +1,6 @@
-#include <queue>
-#include <memory>
 #include <hash_map>
+#include <memory>
+#include <queue>
 
 using namespace std;
 
@@ -11,19 +11,15 @@ struct AStarNode {
     double m_g;
     double m_f;
 
-    AStarNode(unsigned int index, tuple<double, double> pos)
-        : m_index(index), m_pos(pos)
-    {
+    AStarNode(unsigned int index, tuple<double, double> pos) : m_index(index), m_pos(pos) {
         m_parent = -1;
         m_g = 0;
         m_f = 0;
     }
 
-    bool operator>(const AStarNodeWrapper& b) const {
-        return m_node->m_f > b.m_node->m_f;
-    }
+    bool operator>(const AStarNodeWrapper &b) const { return m_node->m_f > b.m_node->m_f; }
 
-    double h(const AStarNode& end) const {
+    double h(const AStarNode &end) const {
         double x = get<0>(m_pos);
         double y = get<1>(m_pos);
         double end_x = get<0>(end.m_pos);
@@ -32,7 +28,8 @@ struct AStarNode {
     }
 };
 
-vector<unsigned int> search(vector<tuple<double, double>> pos, vector<vector<double>> mat, unsigned int start, unsigned int end) {
+vector<unsigned int> search(vector<tuple<double, double>> pos, vector<vector<double>> mat, unsigned int start,
+                            unsigned int end) {
     vector<AStarNode> nodes;
     for (int i = 0; i < pos.size(); ++i) {
         nodes.push_back(AStarNode(i, pos[i]));
@@ -59,7 +56,7 @@ vector<unsigned int> search(vector<tuple<double, double>> pos, vector<vector<dou
                     nodes[i].m_g = g;
                     nodes[i].m_f = nodes[i].m_f + current->h(nodes[end]);
                     nodes[i].m_parent = current->m_index;
-                    frontiers.push(nodes[i]);         // 会有dup，不存在解的时候可能会出问题，有时候也会导致内存爆炸
+                    frontiers.push(nodes[i]); // 会有dup，不存在解的时候可能会出问题，有时候也会导致内存爆炸
                 }
             }
         }
@@ -74,7 +71,4 @@ vector<unsigned int> search(vector<tuple<double, double>> pos, vector<vector<dou
     return path;
 }
 
-int main(void) {
-
-    return 0;
-}
+int main(void) { return 0; }
