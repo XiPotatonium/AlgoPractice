@@ -12,13 +12,12 @@
 
 using namespace std;
 
-constexpr int limit = 10000;
+constexpr int c_limit = 10000;
 
 array<unordered_map<int, int>, limit> s_adj;
-int src, dest;
-
-int best_transfer;
-vector<int> best_path;
+int s_src, s_dest;
+int s_best_transfer;
+vector<int> s_best_path;
 
 int cnt_transfer(vector<int> &path) {
     int cnt = 0, last_line = s_adj[path[0]][path[1]];
@@ -37,15 +36,15 @@ int cnt_transfer(vector<int> &path) {
 void bfs(vector<int> &path) {
     int id = *(path.rbegin());
 
-    if (id == dest) {
+    if (id == s_dest) {
         int trans_cnt = cnt_transfer(path);
-        if (best_path.size() == 0 || path.size() < best_path.size()) {
-            best_path = path;
-            best_transfer = trans_cnt;
-        } else if (path.size() == best_path.size()) {
-            if (trans_cnt < best_transfer) {
-                best_path = path;
-                best_transfer = trans_cnt;
+        if (s_best_path.size() == 0 || path.size() < s_best_path.size()) {
+            s_best_path = path;
+            s_best_transfer = trans_cnt;
+        } else if (path.size() == s_best_path.size()) {
+            if (trans_cnt < s_best_transfer) {
+                s_best_path = path;
+                s_best_transfer = trans_cnt;
             }
         }
     }
@@ -88,24 +87,24 @@ int main(void) {
     cin >> n;
 
     for (int i = 0; i < n; ++i) {
-        cin >> src >> dest;
+        cin >> s_src >> s_dest;
 
-        vector<int> tmp_path = {src};
-        best_path = vector<int>();
-        best_transfer = INT32_MAX;
+        vector<int> tmp_path = {s_src};
+        s_best_path = vector<int>();
+        s_best_transfer = INT32_MAX;
         bfs(tmp_path);
 
-        int last_line = s_adj[best_path[0]][best_path[1]];
-        int last_transfer = src;
-        printf("%d\n", best_path.size() - 1);
-        for (int cur = 0; cur < best_path.size() - 1; ++cur) {
-            if (last_line != s_adj[best_path[cur]][best_path[cur + 1]]) {
-                printf("Take Line#%d from %04d to %04d.\n", last_line, last_transfer, best_path[cur]);
-                last_line = s_adj[best_path[cur]][best_path[cur + 1]];
-                last_transfer = best_path[cur];
+        int last_line = s_adj[s_best_path[0]][s_best_path[1]];
+        int last_transfer = s_src;
+        printf("%d\n", s_best_path.size() - 1);
+        for (int cur = 0; cur < s_best_path.size() - 1; ++cur) {
+            if (last_line != s_adj[s_best_path[cur]][s_best_path[cur + 1]]) {
+                printf("Take Line#%d from %04d to %04d.\n", last_line, last_transfer, s_best_path[cur]);
+                last_line = s_adj[s_best_path[cur]][s_best_path[cur + 1]];
+                last_transfer = s_best_path[cur];
             }
         }
-        printf("Take Line#%d from %04d to %04d.\n", last_line, last_transfer, dest);
+        printf("Take Line#%d from %04d to %04d.\n", last_line, last_transfer, s_dest);
     }
 
     return 0;

@@ -6,6 +6,7 @@ using namespace std;
 vector<vector<int>> adj;
 vector<bool> done;
 
+// 直接用临界图，没有使用入度
 bool is_topo() {
     bool ret = true;
     int n = done.size();
@@ -17,15 +18,17 @@ bool is_topo() {
     int x;
     for (int i = 0; i < n; ++i) {
         cin >> x;
-        if (ret != false) {
-            for (int j = 0; j < n; ++j) {
-                if (adj[x - 1][j] != 0 && !done[j]) {
-                    ret = false;
-                    break;
-                }
-            }
-            done[x - 1] = true;
+        if (ret == false) {
+            continue;   // 哪怕已经不是topo了，也要把输入吃完
         }
+
+        for (int j = 0; j < n; ++j) {
+            if (adj[x - 1][j] != 0 && !done[j]) {
+                ret = false;
+                break;
+            }
+        }
+        done[x - 1] = true;
     }
     return ret;
 }
