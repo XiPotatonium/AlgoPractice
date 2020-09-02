@@ -9,7 +9,5 @@ algos.old
 *.ilk
 *.pdb
 
-main.cpp
-
 build/*
 out/*
