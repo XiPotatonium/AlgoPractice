@@ -7,9 +7,6 @@ bool check_prime(const int num) {
     if (num == 1) {
         return false;
     }
-    if (num == 2 || num == 3) {
-        return true;
-    }
 
     for (int i = 2; i * i <= num; ++i) {
         if (num % i == 0) {

@@ -1,9 +1,8 @@
-﻿#include <iostream>
-#include <vector>
+#include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
-
 
 struct TreeNode {
     int val;
@@ -14,13 +13,13 @@ struct TreeNode {
 
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode *root) { 
+    vector<vector<int>> levelOrderBottom(TreeNode *root) {
         vector<vector<int>> ret;
         if (root == nullptr) {
             return ret;
         }
 
-        queue<TreeNode*> q;
+        queue<TreeNode *> q;
         q.push(root);
         TreeNode *tail = root;
         ret.push_back(vector<int>());
@@ -50,10 +49,4 @@ public:
     }
 };
 
-int main(void) {
-
-
-
-	return 0;
-
-}
+int main(void) { return 0; }

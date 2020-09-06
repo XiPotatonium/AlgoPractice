@@ -33,7 +33,7 @@ int cnt_transfer(vector<int> &path) {
     return cnt;
 }
 
-void bfs(vector<int> &path) {
+void dfs(vector<int> &path) {
     int id = *(path.rbegin());
 
     if (id == s_dest) {
@@ -62,7 +62,7 @@ void bfs(vector<int> &path) {
         }
 
         path.push_back(next_kv.first);
-        bfs(path);
+        dfs(path);
         path.pop_back();
     }
 }
@@ -92,7 +92,7 @@ int main(void) {
         vector<int> tmp_path = {s_src};
         s_best_path = vector<int>();
         s_best_transfer = INT32_MAX;
-        bfs(tmp_path);
+        dfs(tmp_path);
 
         int last_line = s_adj[s_best_path[0]][s_best_path[1]];
         int last_transfer = s_src;
