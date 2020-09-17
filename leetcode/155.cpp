@@ -1,15 +1,11 @@
-/// 最小栈，没什么意思
-
-#include <iostream>
-#include <queue>
+#include <stack>
 #include <vector>
 
 using namespace std;
 
 class MinStack {
-private:
+    int _min;
     vector<int> _data;
-    int _min = -1;
 
 public:
     /** initialize your data structure here. */
@@ -18,19 +14,19 @@ public:
     void push(int x) {
         _data.push_back(x);
         if (_data.size() == 1) {
-            _min = x;
-        } else if (x < _min) {
-            _min = x;
+            _min = 0;
+        } else if (x < _data[_min]) {
+            _min = _data.size() - 1;
         }
     }
 
     void pop() {
-        _data.erase(_data.end() - 1);
-        if (_data.size() > 0) {
-            _min = _data[0];
+        _data.pop_back();
+        if (_data.size() != 0 && _min >= _data.size()) {
+            _min = 0;
             for (int i = 1; i < _data.size(); ++i) {
-                if (_data[i] < _min) {
-                    _min = _data[i];
+                if (_data[i] < _data[_min]) {
+                    _min = i;
                 }
             }
         }
@@ -38,20 +34,5 @@ public:
 
     int top() { return *_data.rbegin(); }
 
-    int getMin() { return _min; }
+    int getMin() { return _data[_min]; }
 };
-
-int main(void) {
-
-    MinStack minStack;
-
-    minStack.push(-2);
-    minStack.push(0);
-    minStack.push(-3);
-    cout << minStack.getMin() << endl;
-    minStack.pop();
-    cout << minStack.top() << endl;
-    cout << minStack.getMin() << endl;
-
-    return 0;
-}
